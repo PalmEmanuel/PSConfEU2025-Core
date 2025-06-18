@@ -24,7 +24,6 @@ jobs:
       - name: Get Installation Token and Comment
         shell: pwsh
         env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             JWT: ${{ steps.generate-jwt.outputs.token }}
         run: |
             $Headers = @{
