@@ -9,7 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       issues: write # To comment on issues
-      contents: read # To checkout repo
     steps:
       - name: Comment on Issue
         shell: pwsh
