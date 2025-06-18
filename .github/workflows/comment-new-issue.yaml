@@ -1,0 +1,44 @@
+name: Comment on New Issue
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  comment:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - name: Generate JWT Token
+        id: generate-jwt
+        uses: PalmEmanuel/PSConfEU2025-Core/.github/actions/create-jwt@main
+        with:
+          clientId: ${{ secrets.GH_APP_CLIENT_ID }}
+          privateKey: ${{ secrets.GH_APP_PRIVATE_KEY }}
+
+      - name: Get Installation Token and Comment
+        shell: pwsh
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+            $Headers = @{
+                Accept = "application/vnd.github+json"
+                Authorization = "Bearer ${{ steps.generate-jwt.outputs.token }}"
+            }
+            
+            $Installations = Invoke-RestMethod -Uri "https://api.github.com/app/installations" -Headers $Headers
+            $InstallationId = ($Installations | Where-Object { $_.account.login -eq "${{ github.repository_owner }}" }).id
+            
+            # Get an installation token
+            $TokenResponse = Invoke-RestMethod -Uri "https://api.github.com/app/installations/$InstallationId/access_tokens" -Headers $Headers -Method Post
+            $InstallationToken = $TokenResponse.token
+            
+            # $Headers['Authorization'] = "Bearer $InstallationToken"
+            $Headers['Authorization'] = "Bearer ${{ secrets.GITHUB_TOKEN }}"
+            
+            $Body = @{
+                Body = "Thanks for opening this issue! Have you heard of PowerShell Conference Europe? It's a great place to discuss challenges and solutions for PowerShell and related technologies!"
+            } | ConvertTo-Json
+            
+            Invoke-RestMethod -Uri "https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/comments" -Headers $Headers -Method Post -Body $Body -ContentType "application/json"
