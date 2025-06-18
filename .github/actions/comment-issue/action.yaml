@@ -1,0 +1,42 @@
+name: "Comment on Issue"
+description: "Comments on a GitHub issue."
+
+inputs:
+  token:
+    description: "The token to use for comment, must have write access to issues."
+    required: true
+  issue_number:
+    description: "The issue number to comment on."
+    required: true
+  body:
+    description: "The body of the comment to post."
+    required: true
+  repository:
+    description: "The repository to comment on, in the format 'owner/repo'."
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Get Installation Token
+      id: get-installation-token
+      shell: pwsh
+      run: |
+        $Headers = @{
+            Accept = "application/vnd.github+json"
+            Authorization = "Bearer ${{ inputs.token }}"
+        }
+        
+        $Body = @{
+            body = "${{ inputs.body }}"
+        } | ConvertTo-Json
+        
+        $Params = @{
+            Uri = "https://api.github.com/repos/${{ inputs.repository }}/issues/${{ inputs.issue_number }}/comments"
+            Headers = $Headers
+            Method = 'Post'
+            Body = $Body
+            ContentType = 'application/json'
+        }
+            
+        Invoke-RestMethod @Params

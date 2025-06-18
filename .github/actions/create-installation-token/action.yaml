@@ -1,0 +1,36 @@
+name: "Create Installation Token"
+description: "Generates an installation token for a GitHub App using the provided account and JWT."
+
+inputs:
+  account:
+    description: "The account to get installation for."
+    required: true
+  jwt:
+    description: "The JWT to use when getting installation token."
+    required: true
+
+outputs:
+  token:
+    value: "${{ steps.get-installation-token.outputs.token }}"
+    description: "The app installation access token."
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Get Installation Token
+      id: get-installation-token
+      shell: pwsh
+      run: |
+        $Headers = @{
+            Accept = "application/vnd.github+json"
+            Authorization = "Bearer ${{ inputs.jwt }}"
+        }
+        
+        $Installations = Invoke-RestMethod -Uri "https://api.github.com/app/installations" -Headers $Headers
+        $InstallationId = ($Installations | Where-Object { $_.account.login -eq "${{ inputs.account }}" }).id
+        
+        # Get an installation token
+        $TokenResponse = Invoke-RestMethod -Uri "https://api.github.com/app/installations/$InstallationId/access_tokens" -Headers $Headers -Method Post
+        $InstallationToken = $TokenResponse.token
+
+        Add-Content -Path $env:GITHUB_ENV -Value "token=$InstallationToken"

@@ -21,37 +21,20 @@ jobs:
           clientId: ${{ secrets.GH_APP_CLIENT_ID }}
           privateKey: ${{ secrets.GH_APP_PRIVATE_KEY }}
 
-      - name: Get Installation Token and Comment
-        shell: pwsh
-        env:
-            JWT: ${{ steps.generate-jwt.outputs.token }}
-        run: |
-            $Headers = @{
-                Accept = "application/vnd.github+json"
-                Authorization = "Bearer ${{ env.JWT }}"
-            }
-            
-            $Installations = Invoke-RestMethod -Uri "https://api.github.com/app/installations" -Headers $Headers
-            $InstallationId = ($Installations | Where-Object { $_.account.login -eq "${{ github.repository_owner }}" }).id
-            
-            # Get an installation token
-            $TokenResponse = Invoke-RestMethod -Uri "https://api.github.com/app/installations/$InstallationId/access_tokens" -Headers $Headers -Method Post
-            $InstallationToken = $TokenResponse.token
-            
-            $Headers['Authorization'] = "Bearer $InstallationToken"
-            
-            $Body = @{
-                body = "Thanks for opening this issue! :star:
+      - name: Get Installation Token
+        id: get-installation-token
+        uses: ./.github/actions/create-installation-token
+        with:
+          account: ${{ github.repository_owner }}
+          jwt: ${{ steps.generate-jwt.outputs.token }}
 
-            Have you heard of [PowerShell Conference Europe](https://psconf.eu)? It's a great place to discuss challenges and solutions for PowerShell and related technologies! :computer:"
-            } | ConvertTo-Json
-            
-            $Params = @{
-                Uri = "https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/comments"
-                Headers = $Headers
-                Method = 'Post'
-                Body = $Body
-                ContentType = 'application/json'
-            }
-                
-            Invoke-RestMethod @Params
+      - name: Comment on Issue
+        uses: ./.github/actions/comment-issue
+        with:
+          token: ${{ steps.get-installation-token.outputs.token }}
+          issue_number: ${{ github.event.issue.number }}
+          repository: ${{ github.repository }}
+          body: |
+            Thanks for opening this issue! :star:
+
+            Have you heard of [PowerShell Conference Europe](https://psconf.eu)? It's a great place to discuss challenges and solutions for PowerShell and related technologies! :computer:
