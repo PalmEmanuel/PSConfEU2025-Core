@@ -1,18 +1,19 @@
-name: "Create Installation Token"
-description: "Generates an installation token for a GitHub App using the provided account and JWT."
+name: "Comment on Issue"
+description: "Comments on a GitHub issue."
 
 inputs:
-  account:
-    description: "The account to get installation for."
-    required: true
-  jwt:
-    description: "The JWT to use when getting installation token."
-    required: true
-
-outputs:
   token:
-    value: "${{ steps.get-installation-token.outputs.token }}"
-    description: "The app installation access token."
+    description: "The token to use for comment, must have write access to issues."
+    required: true
+  issue_number:
+    description: "The issue number to comment on."
+    required: true
+  body:
+    description: "The body of the comment to post."
+    required: true
+  repository:
+    description: "The repository to comment on, in the format 'owner/repo'."
+    required: true
 
 runs:
   using: 'composite'
@@ -23,14 +24,19 @@ runs:
       run: |
         $Headers = @{
             Accept = "application/vnd.github+json"
-            Authorization = "Bearer ${{ inputs.jwt }}"
+            Authorization = "Bearer $($env:token)" # Token shows up as an environment variable
         }
         
-        $Installations = Invoke-RestMethod -Uri "https://api.github.com/app/installations" -Headers $Headers
-        $InstallationId = ($Installations | Where-Object { $_.account.login -eq "${{ inputs.account }}" }).id
+        $Body = @{
+            body = "${{ inputs.body }}"
+        } | ConvertTo-Json
         
-        # Get an installation token
-        $TokenResponse = Invoke-RestMethod -Uri "https://api.github.com/app/installations/$InstallationId/access_tokens" -Headers $Headers -Method Post
-        $InstallationToken = $TokenResponse.token
-
-        Add-Content -Path $env:GITHUB_ENV -Value "token=$InstallationToken"
+        $Params = @{
+            Uri = "https://api.github.com/repos/${{ inputs.repository }}/issues/${{ inputs.issue_number }}/comments"
+            Headers = $Headers
+            Method = 'Post'
+            Body = $Body
+            ContentType = 'application/json'
+        }
+            
+        Invoke-RestMethod @Params
