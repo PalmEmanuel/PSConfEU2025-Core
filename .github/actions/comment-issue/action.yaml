@@ -21,10 +21,12 @@ runs:
     - name: Get Installation Token
       id: get-installation-token
       shell: pwsh
+      env:
+        ACCESS_TOKEN: ${{ inputs.token }}
       run: |
         $Headers = @{
             Accept = "application/vnd.github+json"
-            Authorization = "Bearer $($env:token)" # Token shows up as an environment variable
+            Authorization = "Bearer $($env:ACCESS_TOKEN)"
         }
         
         $Body = @{
