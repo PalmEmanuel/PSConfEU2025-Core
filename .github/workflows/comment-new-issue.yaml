@@ -39,8 +39,7 @@ jobs:
             $TokenResponse = Invoke-RestMethod -Uri "https://api.github.com/app/installations/$InstallationId/access_tokens" -Headers $Headers -Method Post
             $InstallationToken = $TokenResponse.token
             
-            # $Headers['Authorization'] = "Bearer $InstallationToken"
-            $Headers['Authorization'] = "Bearer ${{ env.GITHUB_TOKEN }}"
+            $Headers['Authorization'] = "Bearer $InstallationToken"
             
             $Body = @{
                 body = "Thanks for opening this issue! :star:
