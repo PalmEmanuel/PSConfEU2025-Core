@@ -8,8 +8,8 @@ jobs:
   comment:
     runs-on: ubuntu-latest
     permissions:
-      issues: write
-      contents: read
+      issues: write # To comment on issues
+      contents: read # To checkout repo
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -25,10 +25,11 @@ jobs:
         shell: pwsh
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            JWT: ${{ steps.generate-jwt.outputs.token }}
         run: |
             $Headers = @{
                 Accept = "application/vnd.github+json"
-                Authorization = "Bearer ${{ steps.generate-jwt.outputs.token }}"
+                Authorization = "Bearer ${{ env.JWT }}"
             }
             
             $Installations = Invoke-RestMethod -Uri "https://api.github.com/app/installations" -Headers $Headers
