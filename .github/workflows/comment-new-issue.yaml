@@ -10,6 +10,9 @@ jobs:
     permissions:
       issues: write # To comment on issues
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
       - name: Comment on Issue
         uses: ./.github/actions/comment-issue
         with:
