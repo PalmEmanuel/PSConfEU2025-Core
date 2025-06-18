@@ -11,27 +11,12 @@ jobs:
       issues: write # To comment on issues
     steps:
       - name: Comment on Issue
-        shell: pwsh
-        env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-            $Headers = @{
-                Accept = "application/vnd.github+json"
-                Authorization = "Bearer ${{ env.GITHUB_TOKEN }}"
-            }
-            
-            $Body = @{
-                body = "Thanks for opening this issue! :star:
+        uses: ./.github/actions/comment-issue
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue_number: ${{ github.event.issue.number }}
+          repository: ${{ github.repository }}
+          body: |
+            Thanks for opening this issue! :star:
 
-            Have you heard of [PowerShell Conference Europe](https://psconf.eu)? It's a great place to discuss challenges and solutions for PowerShell and related technologies! :computer:"
-            } | ConvertTo-Json
-
-            $Params = @{
-                Uri = "https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/comments"
-                Headers = $Headers
-                Method = 'Post'
-                Body = $Body
-                ContentType = 'application/json'
-            }
-            
-            Invoke-RestMethod @Params
+            Have you heard of [PowerShell Conference Europe](https://psconf.eu)? It's a great place to discuss challenges and solutions for PowerShell and related technologies! :computer:
