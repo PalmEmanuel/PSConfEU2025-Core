@@ -43,7 +43,9 @@ jobs:
             $Headers['Authorization'] = "Bearer ${{ env.GITHUB_TOKEN }}"
             
             $Body = @{
-                Body = "Thanks for opening this issue! Have you heard of PowerShell Conference Europe? It's a great place to discuss challenges and solutions for PowerShell and related technologies!"
+                body = "Thanks for opening this issue! :star:
+
+            Have you heard of [PowerShell Conference Europe](https://psconf.eu)? It's a great place to discuss challenges and solutions for PowerShell and related technologies! :computer:"
             } | ConvertTo-Json
             
             Invoke-RestMethod -Uri "https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/comments" -Headers $Headers -Method Post -Body $Body -ContentType "application/json"
