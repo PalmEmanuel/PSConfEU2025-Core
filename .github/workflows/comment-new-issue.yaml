@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: Generate JWT Token
         id: generate-jwt
-        uses: PalmEmanuel/PSConfEU2025-Core/.github/actions/create-jwt@main
+        uses: ./.github/actions/create-jwt
         with:
           clientId: ${{ secrets.GH_APP_CLIENT_ID }}
           privateKey: ${{ secrets.GH_APP_PRIVATE_KEY }}
@@ -35,7 +35,7 @@ jobs:
             $InstallationToken = $TokenResponse.token
             
             # $Headers['Authorization'] = "Bearer $InstallationToken"
-            $Headers['Authorization'] = "Bearer ${{ secrets.GITHUB_TOKEN }}"
+            $Headers['Authorization'] = "Bearer ${{ env.GITHUB_TOKEN }}"
             
             $Body = @{
                 Body = "Thanks for opening this issue! Have you heard of PowerShell Conference Europe? It's a great place to discuss challenges and solutions for PowerShell and related technologies!"
