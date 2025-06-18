@@ -28,13 +28,29 @@ jobs:
           account: ${{ github.repository_owner }}
           jwt: ${{ steps.generate-jwt.outputs.token }}
 
-      - name: Comment on Issue
-        uses: ./.github/actions/comment-issue
-        with:
-          token: ${{ steps.get-installation-token.outputs.token }}
-          issue_number: ${{ github.event.issue.number }}
-          repository: ${{ github.repository }}
-          body: |
-            Thanks for opening this issue! :star:
-
-            Have you heard of [PowerShell Conference Europe](https://psconf.eu)? It's a great place to discuss challenges and solutions for PowerShell and related technologies! :computer:
+      - name: Start Mirror Workflow in Private Repository
+        shell: pwsh
+        env:
+          TOKEN: ${{ steps.get-installation-token.outputs.token }}
+        run: |
+          $Headers = @{
+            Accept = "application/vnd.github+json"
+            Authorization = "Bearer $($env:TOKEN)"
+          }
+        
+          $Body = @{
+            event_type = "mirror"
+            client_payload = @{
+              source_repo = "${{ github.repository }}"
+              issue_number = "${{ github.event.issue.number }}"
+              issue_link = "${{ github.event.issue.html_url }}"
+            }
+          } | ConvertTo-Json
+          
+          $Params = @{
+            Uri = "https://api.github.com/repos/${{ vars.MIRROR_REPO }}/dispatches"
+            Headers = $Headers
+            Method = 'Post'
+            Body = $Body
+            ContentType = 'application/json'
+          }
