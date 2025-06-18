@@ -9,6 +9,11 @@ inputs:
     description: "The private key in PEM format used to sign the JWT."
     required: true
 
+outputs:
+  token:
+    value: "${{ steps.generate-jwt.outputs.token }}"
+    description: "The generated JWT token."
+
 runs:
   using: 'composite'
   steps:
