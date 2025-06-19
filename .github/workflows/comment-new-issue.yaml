@@ -45,6 +45,7 @@ jobs:
               source_repo = "${{ github.repository }}"
               issue_number = "${{ github.event.issue.number }}"
               issue_link = "${{ github.event.issue.html_url }}"
+              issue_title = "${{ github.event.issue.title }}"
             }
           } | ConvertTo-Json
           
