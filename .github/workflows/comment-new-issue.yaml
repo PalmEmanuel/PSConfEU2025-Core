@@ -31,11 +31,12 @@ jobs:
       - name: Start Mirror Workflow in Private Repository
         shell: pwsh
         env:
-          TOKEN: ${{ steps.get-installation-token.outputs.token }}
+          ACCESS_TOKEN: ${{ steps.get-installation-token.outputs.token }}
         run: |
+          $Token = if ($env:ACCESS_TOKEN) { $env:ACCESS_TOKEN } else { $env:token }
           $Headers = @{
             Accept = "application/vnd.github+json"
-            Authorization = "Bearer ${{ env.TOKEN }}"
+            Authorization = "Bearer $Token"
           }
         
           $Body = @{
