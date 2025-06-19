@@ -35,7 +35,7 @@ jobs:
         run: |
           $Headers = @{
             Accept = "application/vnd.github+json"
-            Authorization = "Bearer $($env:TOKEN)"
+            Authorization = "Bearer ${{ env.TOKEN }}"
           }
         
           $Body = @{
@@ -54,3 +54,5 @@ jobs:
             Body = $Body
             ContentType = 'application/json'
           }
+
+          Invoke-RestMethod @Params
