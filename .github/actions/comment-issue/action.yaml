@@ -18,15 +18,15 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - name: Get Installation Token
-      id: get-installation-token
+    - name: Post issue comment
       shell: pwsh
       env:
         ACCESS_TOKEN: ${{ inputs.token }}
       run: |
+        $Token = if ($env:ACCESS_TOKEN) { $env:ACCESS_TOKEN } else { $env:token }
         $Headers = @{
             Accept = "application/vnd.github+json"
-            Authorization = "Bearer $($env:ACCESS_TOKEN)"
+            Authorization = "Bearer $Token"
         }
         
         $Body = @{
