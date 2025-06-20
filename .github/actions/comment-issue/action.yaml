@@ -24,11 +24,9 @@ runs:
       env:
         ACCESS_TOKEN: ${{ inputs.token }}
       run: |
-        # Fallback to environment variable if token is not provided
-        $Token = if ($env:ACCESS_TOKEN) { $env:ACCESS_TOKEN } else { $env:token }
         $Headers = @{
             Accept = "application/vnd.github+json"
-            Authorization = "Bearer $Token"
+            Authorization = "Bearer $($env:ACCESS_TOKEN)"
         }
         
         $Body = @{
