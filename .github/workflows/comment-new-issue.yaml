@@ -5,10 +5,8 @@ on:
     types: [opened]
 
 jobs:
-  get-token:
+  comment:
     runs-on: ubuntu-latest
-    outputs:
-      token: ${{ steps.get-installation-token.outputs.token }}
     permissions:
       issues: write # To comment on issues
       contents: read # To checkout the repository
@@ -30,15 +28,10 @@ jobs:
           account: ${{ github.repository_owner }}
           jwt: ${{ steps.generate-jwt.outputs.token }}
 
-  comment:
-    runs-on: ubuntu-latest
-    needs:
-      get-token
-    steps:
       - name: Comment on Issue
         uses: ./.github/actions/comment-issue
         with:
-          token: ${{ needs.get-token.outputs.token }}
+          token: ${{ steps.get-installation-token.outputs.token }}
           issue_number: ${{ github.event.issue.number }}
           repository: ${{ github.repository }}
           body: |
