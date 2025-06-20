@@ -1,0 +1,38 @@
+{
+    "gitlens.currentLine.enabled": false,
+    "gitlens.codeLens.enabled": false,
+    "stagecoder.selectedCodeHighlight": false,
+    "workbench.colorCustomizations": {
+        "errorLens.errorBackground": "#e4545410",
+        "errorLens.errorMessageBackground": "#e4545405",
+        "errorLens.errorForeground": "#ff646440",
+        "errorLens.warningBackground": "#ff942f10",
+        "errorLens.warningForeground": "#fa973a70",
+        "errorLens.warningMessageBackground": "#fff00005"
+    },
+    "editor.parameterHints.enabled": true,
+    "editor.hover.enabled": true,
+    "editor.inlineSuggest.enabled": false,
+    "editor.lightbulb.enabled": "onCode",
+    "github.copilot.enable": {
+        "*": false,
+        "plaintext": false,
+        "markdown": false,
+        "scminput": false
+    },
+    "editor.suggest.showWords": true,
+    "editor.suggest.showSnippets": true,
+    "editor.suggest.showMethods": true,
+    "editor.suggest.showFunctions": true,
+    "editor.suggest.showVariables": true,
+    "editor.suggest.showClasses": true,
+    "editor.suggest.showModules": true,
+    "github.copilot.inlineSuggest.enable": false,
+    "github.copilot.editor.enableAutoCompletions": false,
+    "[yaml]": {
+        "editor.autoIndent": "none"
+    },
+    "[powershell]": {
+        "editor.autoIndent": "none"
+    }
+}
