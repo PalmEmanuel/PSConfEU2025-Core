@@ -5,7 +5,7 @@ on:
     types: [opened]
 
 jobs:
-  comment:
+  create-mirror-issue:
     runs-on: ubuntu-latest
     permissions:
       issues: write # To comment on issues
