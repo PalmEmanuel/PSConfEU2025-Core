@@ -22,12 +22,13 @@
     "editor.suggest.showVariables": false,
     "editor.suggest.showClasses": false,
     "editor.suggest.showModules": false,
-    "github.copilot.inlineSuggest.enable": false,
-    "github.copilot.editor.enableAutoCompletions": false,
     "[yaml]": {
         "editor.autoIndent": "none"
     },
     "[powershell]": {
         "editor.autoIndent": "none"
-    }
+    },
+    "editor.autoIndent": "none",
+    "github.copilot.inlineSuggest.enable": false,
+    "github.copilot.editor.enableAutoCompletions": false
 }

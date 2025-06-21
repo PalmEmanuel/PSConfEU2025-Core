@@ -10,7 +10,7 @@ $Headers = @{
     Accept = 'application/vnd.github+json'
     Authorization = "Bearer $JWT"
 }
-        
+
 $Installations = Invoke-RestMethod -Uri 'https://api.github.com/app/installations' -Headers $Headers
 $InstallationId = ($Installations | Where-Object { $_.account.login -eq $Account }).id
 
