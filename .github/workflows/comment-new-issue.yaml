@@ -7,8 +7,6 @@ on:
 jobs:
   get-token:
     runs-on: ubuntu-latest
-    outputs:
-      token: ${{ steps.get-installation-token.outputs.token }}
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4

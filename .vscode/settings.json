@@ -13,7 +13,7 @@
     "editor.parameterHints.enabled": false,
     "editor.hover.enabled": false,
     "editor.inlineSuggest.enabled": false,
-    "editor.lightbulb.enabled": false,
+    "editor.lightbulb.enabled": "off",
     "github.copilot.enable": false,
     "editor.suggest.showWords": false,
     "editor.suggest.showSnippets": false,
@@ -30,6 +30,10 @@
     "[powershell]": {
         "editor.autoIndent": "none"
     },
-    "editor.quickSuggestions": false,
+    "editor.quickSuggestions": {
+        "comments": "off",
+        "strings": "off",
+        "other": "off"
+    },
     "editor.suggestOnTriggerCharacters": false
 }
