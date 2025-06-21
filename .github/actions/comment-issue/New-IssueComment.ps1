@@ -24,7 +24,7 @@ $Body = @{ body = $Body } | ConvertTo-Json
 
 $Params = @{
     # Comment Splat Params
-	Uri = "https://api.github.com/repos/$Repo/issues/$IssueNumber/comments"
+	Uri = "https://api.github.com/repos/$Repository/issues/$IssueNumber/comments"
 	Headers = $Headers
 	Method = 'Post'
 	Body = $Body

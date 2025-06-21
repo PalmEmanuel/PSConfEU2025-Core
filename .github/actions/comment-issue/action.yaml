@@ -27,5 +27,4 @@ runs:
         REPO: ${{ inputs.repository }}
         BODY: ${{ inputs.body }}
       run: |
-        dir env:
         ./.github/actions/comment-issue/New-IssueComment.ps1 -Token $env:TOKEN -IssueNumber $env:ISSUE -Repository $env:REPO -Body $env:BODY
