@@ -1,36 +1,32 @@
 name: "Create Installation Token"
-description: "Generates an installation token for a GitHub App using the provided account and JWT."
+description: "Generates a token for a GitHub App installation."
 
 inputs:
-  account:
-    description: "The account to get installation for."
+  clientId:
+    description: "The client ID of the app."
     required: true
-  jwt:
-    description: "The JWT to use when getting installation token."
+  privateKey:
+    description: "The private key of the app for signing the JWT."
+    required: true
+  account:
+    description: "The account to get the installation token for."
     required: true
 
 outputs:
   token:
     value: "${{ steps.get-installation-token.outputs.token }}"
-    description: "The app installation access token."
+    description: "The generated installation token."
 
 runs:
   using: 'composite'
   steps:
-    - name: Get Installation Token
+    - name: Generate JWT Token
       id: get-installation-token
       shell: pwsh
       run: |
-        $Headers = @{
-            Accept = "application/vnd.github+json"
-            Authorization = "Bearer ${{ inputs.jwt }}"
-        }
+        Set-Location './.github/actions/create-installation-token'
+        $JWT = ./New-JWT.ps1 -ClientId ${{ inputs.clientId }} -PrivateKey ${{ inputs.privateKey }}
         
-        $Installations = Invoke-RestMethod -Uri "https://api.github.com/app/installations" -Headers $Headers
-        $InstallationId = ($Installations | Where-Object { $_.account.login -eq "${{ inputs.account }}" }).id
-        
-        # Get an installation token
-        $TokenResponse = Invoke-RestMethod -Uri "https://api.github.com/app/installations/$InstallationId/access_tokens" -Headers $Headers -Method Post
-        $InstallationToken = $TokenResponse.token
+        $Token = ./New-InstallationToken.ps1 -JWT $JWT -Account ${{ inputs.account }}
 
-        Add-Content -Path $env:GITHUB_ENV -Value "token=$InstallationToken"
+        Add-Content -Path $env:GITHUB_OUTPUT -Value "token=$Token"

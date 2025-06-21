@@ -18,27 +18,14 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - name: Post issue comment
+    # Comment on Issue step
+    - name: Comment on Issue
       shell: pwsh
       env:
         ACCESS_TOKEN: ${{ inputs.token }}
       run: |
         $Token = if ($env:ACCESS_TOKEN) { $env:ACCESS_TOKEN } else { $env:token }
-        $Headers = @{
-            Accept = "application/vnd.github+json"
-            Authorization = "Bearer $Token"
-        }
-        
-        $Body = @{
-            body = "${{ inputs.body }}"
-        } | ConvertTo-Json
-        
-        $Params = @{
-            Uri = "https://api.github.com/repos/${{ inputs.repository }}/issues/${{ inputs.issue_number }}/comments"
-            Headers = $Headers
-            Method = 'Post'
-            Body = $Body
-            ContentType = 'application/json'
-        }
-            
-        Invoke-RestMethod @Params
+        $Issue = '${{ inputs.issue_number }}'
+        $Repo = '${{ inputs.repository }}'
+        $Body = '${{ inputs.body }}'
+        ./.github/actions/comment-issue/New-IssueComment.ps1 -Token $Token -IssueNumber $Issue -Repository $Repo -Body $Body
