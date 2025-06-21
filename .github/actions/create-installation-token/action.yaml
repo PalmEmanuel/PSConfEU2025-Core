@@ -24,7 +24,7 @@ runs:
       id: get-installation-token
       shell: pwsh
       run: |
-        Set-Location './.github/actions/create-installation-token'
+        Set-Location ${{ github.action_path }}
         $JWT = ./New-JWT.ps1 -ClientId '${{ inputs.clientId }}' -PrivateKey '${{ inputs.privateKey }}'
         
         $Token = ./New-InstallationToken.ps1 -JWT $JWT -Account '${{ inputs.account }}'
