@@ -29,6 +29,8 @@ jobs:
     needs:
       get-token
     steps:
+      - uses: actions/checkout@v4
+      
       - name: Comment on Issue
         uses: ./.github/actions/comment-issue
         with:
