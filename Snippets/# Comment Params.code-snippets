@@ -1,0 +1,19 @@
+{
+  "# Comment Params": {
+    "prefix": "# Comment Params",
+    "body": [
+      "[Parameter(Mandatory)]",
+      "\t[string]$Token,",
+      "",
+      "\t[Parameter(Mandatory)]",
+      "\t[string]$IssueNumber,",
+      "",
+      "\t[Parameter(Mandatory)]",
+      "\t[string]$Body,",
+      "",
+      "\t[Parameter(Mandatory)]",
+      "\t[string]$Repository"
+    ],
+    "description": "# Comment Params"
+  }
+}
