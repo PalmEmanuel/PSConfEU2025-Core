@@ -27,4 +27,5 @@ runs:
         REPO: ${{ inputs.repository }}
         BODY: ${{ inputs.body }}
       run: |
-        ./.github/actions/comment-issue/New-IssueComment.ps1 -Token $env:TOKEN -IssueNumber $env:ISSUE -Repository $env:REPO -Body $env:BODY
+        Set-Location '${{ github.action_path }}'
+        ./New-IssueComment.ps1 -Token $env:TOKEN -IssueNumber $env:ISSUE -Repository $env:REPO -Body $env:BODY
