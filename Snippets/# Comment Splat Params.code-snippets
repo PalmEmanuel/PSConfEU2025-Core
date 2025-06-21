@@ -1,0 +1,13 @@
+{
+  "# Comment Splat Params": {
+    "prefix": "# Comment Splat Params",
+    "body": [
+      "Uri = \"https://api.github.com/repos/$Repo/issues/$IssueNumber/comments\"",
+      "\tHeaders = $Headers",
+      "\tMethod = 'Post'",
+      "\tBody = $Body",
+      "\tContentType = 'application/json'"
+    ],
+    "description": "# Comment Splat Params"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "# Comment Headers": {
+    "prefix": "# Comment Headers",
+    "body": [
+      "Accept = 'application/vnd.github+json'",
+      "\tAuthorization = \"Bearer $Token\""
+    ],
+    "description": "# Comment Headers"
+  }
+}

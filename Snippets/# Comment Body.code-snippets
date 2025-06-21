@@ -1,0 +1,9 @@
+{
+  "# Comment Body": {
+    "prefix": "# Comment Body",
+    "body": [
+      "$Body = @{ body = $Body } | ConvertTo-Json"
+    ],
+    "description": "# Comment Body"
+  }
+}
