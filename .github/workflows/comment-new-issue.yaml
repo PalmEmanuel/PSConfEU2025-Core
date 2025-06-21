@@ -21,20 +21,10 @@ jobs:
           privateKey: ${{ secrets.GH_APP_PRIVATE_KEY }}
           account: ${{ github.repository_owner }}
 
-  comment:
-    runs-on: ubuntu-latest
-    permissions:
-      issues: write # To comment on issues
-      contents: read # To checkout the repository
-    needs:
-      get-token
-    steps:
-      - uses: actions/checkout@v4
-
       - name: Comment on Issue
         uses: ./.github/actions/comment-issue
         with:
-          token: ${{ needs.get-token.outputs.token }}
+          token: ${{ steps.get-installation-token.outputs.token }}
           issue_number: ${{ github.event.issue.number }}
           repository: ${{ github.repository }}
           body: |
