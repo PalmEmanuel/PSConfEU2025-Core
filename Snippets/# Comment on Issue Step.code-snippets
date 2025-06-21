@@ -1,6 +1,6 @@
 {
-  "# Comment on Issue Step": {
-    "prefix": "# Comment on Issue Step",
+  "# Comment on Issue step": {
+    "prefix": "# Comment on Issue step",
     "body": [
       "- name: Comment on Issue",
       "      shell: pwsh",
@@ -8,11 +8,11 @@
       "        ACCESS_TOKEN: ${{ inputs.token }}",
       "      run: |",
       "        $Token = if ($env:ACCESS_TOKEN) { $env:ACCESS_TOKEN } else { $env:token }",
-      "        $Issue = ${{ inputs.issue_number }}",
-      "        $Repo = ${{ inputs.repository }}",
-      "        $Body = ${{ inputs.body }}",
+      "        $Issue = '${{ inputs.issue_number }}'",
+      "        $Repo = '${{ inputs.repository }}'",
+      "        $Body = '${{ inputs.body }}'",
       "        ./.github/actions/comment-issue/New-IssueComment.ps1 -Token $Token -IssueNumber $Issue -Repository $Repo -Body $Body"
     ],
-    "description": "# Comment on Issue Step"
+    "description": "# Comment on Issue step"
   }
 }

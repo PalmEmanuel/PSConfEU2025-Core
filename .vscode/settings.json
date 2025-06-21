@@ -29,7 +29,5 @@
     },
     "[powershell]": {
         "editor.autoIndent": "none"
-    },
-    "editor.quickSuggestions": false,
-    "editor.suggestOnTriggerCharacters": false
+    }
 }
