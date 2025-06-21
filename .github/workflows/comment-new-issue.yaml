@@ -9,9 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       token: ${{ steps.get-installation-token.outputs.token }}
-    permissions:
-      issues: write # To comment on issues
-      contents: read # To checkout the repository
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -26,11 +23,14 @@ jobs:
 
   comment:
     runs-on: ubuntu-latest
+    permissions:
+      issues: write # To comment on issues
+      contents: read # To checkout the repository
     needs:
       get-token
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Comment on Issue
         uses: ./.github/actions/comment-issue
         with:
