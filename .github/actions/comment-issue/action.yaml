@@ -18,8 +18,7 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - name: Get Installation Token
-      id: get-installation-token
+    - name: Comment on Issue
       shell: pwsh
       env:
         ACCESS_TOKEN: ${{ inputs.token }}
