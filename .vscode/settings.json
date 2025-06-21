@@ -10,23 +10,18 @@
         "errorLens.warningForeground": "#fa973a70",
         "errorLens.warningMessageBackground": "#fff00005"
     },
-    "editor.parameterHints.enabled": true,
-    "editor.hover.enabled": true,
+    "editor.parameterHints.enabled": false,
+    "editor.hover.enabled": false,
     "editor.inlineSuggest.enabled": false,
-    "editor.lightbulb.enabled": "onCode",
-    "github.copilot.enable": {
-        "*": false,
-        "plaintext": false,
-        "markdown": false,
-        "scminput": false
-    },
-    "editor.suggest.showWords": true,
-    "editor.suggest.showSnippets": true,
-    "editor.suggest.showMethods": true,
-    "editor.suggest.showFunctions": true,
-    "editor.suggest.showVariables": true,
-    "editor.suggest.showClasses": true,
-    "editor.suggest.showModules": true,
+    "editor.lightbulb.enabled": false,
+    "github.copilot.enable": false,
+    "editor.suggest.showWords": false,
+    "editor.suggest.showSnippets": false,
+    "editor.suggest.showMethods": false,
+    "editor.suggest.showFunctions": false,
+    "editor.suggest.showVariables": false,
+    "editor.suggest.showClasses": false,
+    "editor.suggest.showModules": false,
     "github.copilot.inlineSuggest.enable": false,
     "github.copilot.editor.enableAutoCompletions": false,
     "[yaml]": {
@@ -34,5 +29,7 @@
     },
     "[powershell]": {
         "editor.autoIndent": "none"
-    }
+    },
+    "editor.quickSuggestions": false,
+    "editor.suggestOnTriggerCharacters": false
 }
