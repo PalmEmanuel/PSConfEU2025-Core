@@ -13,7 +13,7 @@
     "editor.parameterHints.enabled": false,
     "editor.hover.enabled": false,
     "editor.inlineSuggest.enabled": false,
-    "editor.lightbulb.enabled": "off",
+    "editor.lightbulb.enabled": false,
     "github.copilot.enable": false,
     "editor.suggest.showWords": false,
     "editor.suggest.showSnippets": false,

@@ -11,18 +11,13 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Get Installation Token
-        id: get-installation-token
-        uses: ./.github/actions/create-installation-token
-        with:
-          clientId: ${{ secrets.GH_APP_CLIENT_ID }}
-          privateKey: ${{ secrets.GH_APP_PRIVATE_KEY }}
-          account: ${{ github.repository_owner }}
+      # Get Installation Token
+      # Create App
 
       - name: Comment on Issue
         uses: ./.github/actions/comment-issue
         with:
-          token: ${{ steps.get-installation-token.outputs.token }}
+          token: ${{ secrets.GITHUB_TOKEN }} # Replace with installation token
           issue_number: ${{ github.event.issue.number }}
           repository: ${{ github.repository }}
           body: |
