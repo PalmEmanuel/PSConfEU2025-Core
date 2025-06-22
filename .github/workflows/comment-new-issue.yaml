@@ -5,7 +5,8 @@ on:
     types: [opened]
 
 jobs:
-  get-token:
+  comment-as-app:
+    # Removed permissions defined for GitHub Actions token
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
