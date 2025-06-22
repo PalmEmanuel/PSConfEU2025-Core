@@ -1,30 +1,15 @@
 param(
-	[Parameter(Mandatory)]
-	[string]$Token,
-
-	[Parameter(Mandatory)]
-	[string]$IssueNumber,
-
-	[Parameter(Mandatory)]
-	[string]$Body,
-
-	[Parameter(Mandatory)]
-	[string]$Repository
+	# Comment Params
 )
 
 $Headers = @{
-    Accept = 'application/vnd.github+json'
-	Authorization = "Bearer $Token"
+    # Comment Headers
 }
 
-$Body = @{ body = $Body } | ConvertTo-Json
+# Comment Body
 
 $Params = @{
-    Uri = "https://api.github.com/repos/$Repository/issues/$IssueNumber/comments"
-	Headers = $Headers
-	Method = 'Post'
-	Body = $Body
-	ContentType = 'application/json'
+    # Comment Splat Params
 }
 
 Invoke-RestMethod @Params

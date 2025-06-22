@@ -18,11 +18,4 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - name: Comment on Issue
-      shell: pwsh
-      env:
-        TOKEN: ${{ inputs.token }}
-        ISSUE: ${{ inputs.issue_number }}
-        REPO: ${{ inputs.repository }}
-        BODY: ${{ inputs.body }}
-      run: ./.github/actions/comment-issue/New-IssueComment.ps1 -Token $env:TOKEN -IssueNumber $env:ISSUE -Repository $env:REPO -Body $env:BODY
+    # Comment on Issue step
