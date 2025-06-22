@@ -22,6 +22,19 @@ jobs:
           privateKey: ${{ secrets.GH_APP_PRIVATE_KEY }}
           account: ${{ github.repository_owner }}
 
+      # Remove comment step below
+      - name: Comment on Issue
+        uses: ./.github/actions/comment-issue
+        with:
+          token: ${{ steps.get-installation-token.outputs.token }}
+          issue_number: ${{ github.event.issue.number }}
+          repository: ${{ github.repository }}
+          body: |
+            Thanks for opening this issue! :star:
+
+            Have you heard of [PowerShell Conference Europe](https://psconf.eu)? It is a great place to discuss challenges and solutions for PowerShell
+
+      # Invoke mirror event
       - name: Start Mirror Workflow in Private Repository
         shell: pwsh
         env:
