@@ -30,7 +30,5 @@
     "[powershell]": {
         "editor.autoIndent": "none"
     },
-    "editor.autoIndent": "none",
-    "editor.quickSuggestions": false,
-    "editor.suggestOnTriggerCharacters": false
+    "editor.autoIndent": "none"
 }
