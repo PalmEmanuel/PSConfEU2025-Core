@@ -1,0 +1,15 @@
+{
+  "# Get Installation Token": {
+    "prefix": "# Get Installation Token",
+    "body": [
+      "- name: Get Installation Token",
+      "        id: get-installation-token",
+      "        uses: ./.github/actions/create-installation-token",
+      "        with:",
+      "          clientId: ${{ secrets.GH_APP_CLIENT_ID }}",
+      "          privateKey: ${{ secrets.GH_APP_PRIVATE_KEY }}",
+      "          account: ${{ github.repository_owner }}"
+    ],
+    "description": "# Get Installation Token"
+  }
+}
