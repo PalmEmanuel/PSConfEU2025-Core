@@ -1,15 +1,14 @@
 {
     "gitlens.currentLine.enabled": false,
     "gitlens.codeLens.enabled": false,
-    "stagecoder.selectedCodeHighlight": true,
+    "stagecoder.selectedCodeHighlight": false,
     "workbench.colorCustomizations": {
         "errorLens.errorBackground": "#e4545410",
         "errorLens.errorMessageBackground": "#e4545405",
         "errorLens.errorForeground": "#ff646440",
         "errorLens.warningBackground": "#ff942f10",
         "errorLens.warningForeground": "#fa973a70",
-        "errorLens.warningMessageBackground": "#fff00005",
-        "editor.selectionBackground": "#1e1e1e"
+        "errorLens.warningMessageBackground": "#fff00005"
     },
     "editor.parameterHints.enabled": false,
     "editor.hover.enabled": false,

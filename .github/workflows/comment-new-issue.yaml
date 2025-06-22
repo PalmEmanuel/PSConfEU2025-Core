@@ -7,9 +7,6 @@ on:
 jobs:
   create-mirror-issue:
     runs-on: ubuntu-latest
-    permissions:
-      issues: write # To comment on issues
-      contents: read # To checkout the repository
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
